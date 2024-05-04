@@ -61,14 +61,14 @@ const Header = () => {
                   alt="logo"
                   width={100}
                   height={30}
-                  className="dark:hidden"
+                  className="dark:hidden w-16"
                 />
                 <Image
                   src="/images/logo/LOGO-B.png"
                   alt="logo"
                   width={100}
                   height={30}
-                  className="hidden dark:block"
+                  className="hidden dark:block w-16"
                 />
               </Link>
             </div>

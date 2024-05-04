@@ -11,7 +11,7 @@ const Pricing = () => {
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="Simple and Affordable Pricing"
+          title="Simple and Affordable Fee Pricing"
           paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
           center
           width="665px"
@@ -27,7 +27,7 @@ const Pricing = () => {
                   : "text-dark dark:text-white"
               } mr-4 cursor-pointer text-base font-semibold`}
             >
-              Monthly
+              30 Day Plans
             </span>
             <div
               onClick={() => setIsMonthly(!isMonthly)}
@@ -52,7 +52,7 @@ const Pricing = () => {
                   : "pointer-events-none text-primary"
               } ml-4 cursor-pointer text-base font-semibold`}
             >
-              Yearly
+              365 Day Plans
             </span>
           </div>
         </div>
@@ -60,33 +60,38 @@ const Pricing = () => {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <PricingBox
             packageName="Lite"
-            price={isMonthly ? "40" : "120"}
+            price={isMonthly ? "149" : "449"}
             duration={isMonthly ? "mo" : "yr"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="inactive" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
+            {isMonthly?
+            <>
+            <OfferList text={'1 Physical Checkup'} status="active" />
+            <OfferList text={'1 Call Checkup'} status="active" />
+            
+            <OfferList text={"Further Fee Discount"} status={isMonthly ? "inactive" : "inactive"} />
+            </>
+            :<>
+            <OfferList text={'6 Physical Checkups'} status="active" />
+            <OfferList text={'6 Call Checkups'} status="active" />
+            
+            <OfferList text={"7% Further Fee Discount"} status={isMonthly ? "inactive" : "active"} />
+            </>}
           </PricingBox>
           <PricingBox
             packageName="Basic"
-            price={isMonthly ? "399" : "789"}
+            price={isMonthly ? "299" : "1099"}
             duration={isMonthly ? "mo" : "yr"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="active" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
+             <OfferList text={isMonthly?'3 Checkups':'20 Checkups'} status="active" />
+            <OfferList text={isMonthly?'3 Call Checkups':'20 Call Checkups'} status="active" />
+            
+            <OfferList text="Further Fee Discount" status="inactive" />
           </PricingBox>
           <PricingBox
             packageName="Plus"
-            price={isMonthly ? "589" : "999"}
+            price={isMonthly ? "899" : "3999"}
             duration={isMonthly ? "mo" : "yr"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
