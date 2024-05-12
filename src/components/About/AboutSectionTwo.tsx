@@ -11,48 +11,30 @@ const AboutSectionTwo = () => {
               data-wow-delay=".15s"
             >
               <Image
-                src="/images/about/about-image-2.svg"
+                src="/images/logo/LOGO-W.png"
                 alt="about image"
                 fill
-                className="drop-shadow-three dark:hidden dark:drop-shadow-none"
+                className="drop-shadow-three dark:hidden dark:drop-shadow-none rounded-2xl"
               />
               <Image
-                src="/images/about/about-image-2-dark.svg"
+                src="/images/logo/LOGO-B.png"
                 alt="about image"
                 fill
-                className="hidden drop-shadow-three dark:block dark:drop-shadow-none"
+                className="hidden drop-shadow-three dark:block dark:drop-shadow-none rounded-2xl"
               />
             </div>
           </div>
           <div className="w-full px-4 lg:w-1/2">
-            <div className="max-w-[470px]">
+            <div className="max-w-[600px]">
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Book An Appointment
-                </h3>
+               
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  <span className="text-5xl font-bold text-black dark:text-white mb-6 block">About Us</span>
+                Welcome to Golden Hands Clinic, your trusted destination for comprehensive healthcare services in Beehama, Ganderbal. At Golden Hands, we pride ourselves on providing top-notch medical care in general medicine and surgery, catering to the diverse needs of our community. Our dedicated team of experienced healthcare professionals is committed to delivering personalized treatment plans tailored to each patient&apos;s unique needs, ensuring the highest standard of care and comfort. With a focus on excellence and compassion, Golden Hands Clinic is here to guide you on your journey towards optimal health and well-being.
                 </p>
               </div>
-              <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Get Your Appointment Feedback
-                </h3>
-                <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt.
-                </p>
-              </div>
-              <div className="mb-1">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                  Visit Us
-                </h3>
-                <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt
-                  consectetur adipiscing elit setim.
-                </p>
-              </div>
+             
+              
             </div>
           </div>
         </div>

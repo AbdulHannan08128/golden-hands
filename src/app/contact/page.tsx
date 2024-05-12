@@ -3,21 +3,30 @@ import Contact from "@/components/Contact";
 
 import { Metadata } from "next";
 
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
+
 export const metadata: Metadata = {
-  title: "Contact Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Contact Page for Startup Nextjs Template",
+  title: "Golden Hands | Contact",
+  description: "",
   // other metadata
 };
 
 const ContactPage = () => {
   return (
     <>
-      <Breadcrumb
-        pageName="Contact Page"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
+    <Header/>
+      <div>
+        <Breadcrumb
+          pageName="Contact Us"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        />
 
-      <Contact />
+        <Contact />
+      </div>
+      <Footer/>
+      <ScrollToTop/>
     </>
   );
 };

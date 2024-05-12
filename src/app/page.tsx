@@ -10,6 +10,9 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Video from "@/components/Video";
 import { Metadata } from "next";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Golden Hands Clinic",
@@ -20,6 +23,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+    <Header/>
+    <div>
       <ScrollUp />
       <Hero />
       <Features />
@@ -27,10 +32,14 @@ export default function Home() {
       {/* <Brands /> */}
       <AboutSectionOne />
       <AboutSectionTwo />
-      <Testimonials />
+      {/* <Testimonials /> */}
       {/* <Pricing /> */}
-      <Blog />
+      {/* <Blog /> */}
       <Contact />
+    </div>
+    <Footer/>
+    <ScrollToTop/>
+      
     </>
   );
 }

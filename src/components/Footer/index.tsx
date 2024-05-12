@@ -12,16 +12,16 @@ const Footer = () => {
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
                   <Image
-                    src="/images/logo/logo-2.svg"
+                    src="/images/logo/LOGO-W.png"
                     alt="logo"
-                    className="w-full dark:hidden"
+                    className=" dark:hidden"
                     width={140}
                     height={30}
                   />
                   <Image
-                    src="/images/logo/logo.svg"
+                    src="/images/logo/LOGO-B.png"
                     alt="logo"
-                    className="hidden w-full dark:block"
+                    className="hidden dark:block"
                     width={140}
                     height={30}
                   />
@@ -117,18 +117,10 @@ const Footer = () => {
                 <ul>
                   <li>
                     <Link
-                      href="/blog"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      Blog
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Pricing
+                      Home
                     </Link>
                   </li>
                   <li>
@@ -139,6 +131,22 @@ const Footer = () => {
                       About
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      href="/features"
+                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
+                    >
+                      Features
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
+                    >
+                      Contact
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -146,7 +154,7 @@ const Footer = () => {
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Terms
+                  Appointment
                 </h2>
                 <ul>
                   <li>
@@ -154,7 +162,7 @@ const Footer = () => {
                       href="/"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      TOS
+                      Book Appointment
                     </Link>
                   </li>
                   <li>
@@ -162,7 +170,7 @@ const Footer = () => {
                       href="/"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Privacy Policy
+                      Track Appointment
                     </Link>
                   </li>
                   <li>
@@ -170,9 +178,10 @@ const Footer = () => {
                       href="/"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Refund Policy
+                      Call Us
                     </Link>
                   </li>
+                  
                 </ul>
               </div>
             </div>
@@ -188,7 +197,15 @@ const Footer = () => {
                       href="/contact"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Open Support Ticket
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
+                    >
+                      Call Us
                     </Link>
                   </li>
                   <li>
@@ -196,17 +213,10 @@ const Footer = () => {
                       href="/"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Terms of Use
+                      Developer
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      About
-                    </Link>
-                  </li>
+                 
                 </ul>
               </div>
             </div>
@@ -215,24 +225,12 @@ const Footer = () => {
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
           <div className="py-8">
             <p className="text-center text-base text-body-color dark:text-white">
-              Template by{" "}
-              <a
-                href="http://uideck.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary"
-              >
-                UIdeck
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://nextjstemplates.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary"
-              >
-                Next.js Templates
-              </a>
+              Copyright &copy; golden-hands.in. All Rights Reserved.
+              <br />
+              <span className="text-sm">
+              Made By <a href="https://abdul-hannan.vercel.app" className=" text-sm font-bold" style={{letterSpacing:'2px'}}>Abdul Hannan</a>
+              </span>
+             
             </p>
           </div>
         </div>

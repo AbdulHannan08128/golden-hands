@@ -2,11 +2,6 @@ import Link from "next/link";
 
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Sign Up Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Sign Up Page for Startup Nextjs Template",
-  // other metadata
-};
 
 const SignupPage = () => {
   return (
@@ -177,7 +172,7 @@ const SignupPage = () => {
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Already using Startup?{" "}
+                  Already using xyz?{" "}
                   <Link href="/signin" className="text-primary hover:underline">
                     Sign in
                   </Link>

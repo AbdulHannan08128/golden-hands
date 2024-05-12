@@ -1,24 +1,31 @@
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Page | Free Next.js Template for Startup and SaaS",
-  description: "This is About Page for Startup Nextjs Template",
+  title: "Golden Hands | About",
+  description: "A Clinic Opening Soon In Ganderbal",
   // other metadata
 };
 
 const AboutPage = () => {
   return (
     <>
-      <Breadcrumb
-        pageName="About Page"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-      <AboutSectionOne />
-      <AboutSectionTwo />
+    <Header/>
+      <div>
+        <Breadcrumb
+          pageName="About Golden Hands Clinic"
+          description="Your Wellness Journey Starts Here. Compassionate Care, Trusted Expertise and Endless Possibilities."
+        />
+        <AboutSectionOne />
+        <AboutSectionTwo />
+      </div>
+      <Footer/>
+      <ScrollToTop/>
     </>
   );
 };
