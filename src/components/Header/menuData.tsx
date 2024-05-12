@@ -39,13 +39,13 @@ const menuData: Menu[] = [
       {
         id: 42,
         title: "Track Appointment",
-        path: "/contact",
+        path: "/track-appointment",
         newTab: false,
       },
       {
         id: 43,
         title: "Call Us",
-        path: "/contact",
+        path: 'tel:+91 7051499639',
         newTab: false,
       },
      

@@ -1,14 +1,14 @@
-import AppointmentForm from "./appointmentForm";
+import AppointmentForm from "./trackForm";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata:Metadata = {
-  title:'Golden Hands | Book Appointment',
+  title:'Golden Hands | Track Appointment',
   description:'Book Appointment in Golden Hands Clinic'
 }
-const BookAppointment = () => {
+const TrackAppointment = () => {
   return (
     <>
       <Header />
@@ -21,4 +21,4 @@ const BookAppointment = () => {
   );
 };
 
-export default BookAppointment;
+export default TrackAppointment;
