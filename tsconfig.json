@@ -23,6 +23,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/book-appointment/appointmentForm.jsx", "src/app/track-appointment/trackForm.jsx", "src/components/Contact/index.jsx", "src/app/admin/Cards.jsx"],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/book-appointment/appointmentForm.jsx", "src/app/track-appointment/trackForm.jsx", "src/components/Contact/index.jsx", "src/app/admin/Cards.jsx", "src/app/page.js"],
   "exclude": ["node_modules"]
 }
