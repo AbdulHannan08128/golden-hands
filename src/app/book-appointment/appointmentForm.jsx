@@ -3,9 +3,36 @@ import React, { useState } from "react";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Image from "next/image";
+
 const AppointmentForm = () => {
-  const [startDate, setStartDate] = useState(new Date());
+ 
+  const [name, setName] = useState();
+  const [number, setNumber] = useState();
+  const [email, setEmail] = useState();
+  const [residence, setResidence] = useState();
+  const [reason, setReason] = useState();
+  const [date, setDate] = useState(new Date);
+  const [appointmentPassword, setAppointmentPassword] = useState();
+  const [conformedAppointmentPassword, setConformedAppointmentPassword] = useState();
+
+  const submit = async(e)=>{
+    e.preventDefault();
+    if (!name||!email||!number||!appointmentPassword||!conformedAppointmentPassword||!date) {
+     //Not Filled All Necessary Fields
+     
+    }
+    else if(!email.includes('@')){
+      //Email not written properly
+    }
+    else if(number.length!=10){
+      //Number Is Not Valid
+    }
+    else{
+      //All Details Are Correct
+    }
+    
+  }
+
   return (
     <>
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
@@ -34,13 +61,14 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Full Name{" "}
+                      Full Name*{" "}
                     </label>
                     <input
                       type="text"
                       name="name"
                       placeholder="Enter your full name"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setName(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -49,13 +77,14 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Phone Number{" "}
+                      Phone Number*{" "}
                     </label>
                     <input
                       type="number"
                       name="phone"
                       placeholder="Enter your Phone Number"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setNumber(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -64,13 +93,14 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Email{" "}
+                      Email*{" "}
                     </label>
                     <input
                       type="text"
                       name="email"
                       placeholder="Enter your Email"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setEmail(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -79,13 +109,45 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Select Date{" "}
+                      Residence{" "}
+                    </label>
+                    <input
+                      type="text"
+                      name="residence"
+                      placeholder="Enter your Residence"
+                      className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setResidence(e.target.value)}}
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label
+                      htmlFor="email"
+                      className="mb-3 block text-sm text-dark dark:text-white"
+                    >
+                      {" "}
+                      Reason / Cause Of Visiting{" "}
+                    </label>
+                    <input
+                      type="text"
+                      name="reason"
+                      placeholder="Enter Cause Of Visiting Us"
+                      className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setReason(e.target.value)}}
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label
+                      htmlFor="email"
+                      className="mb-3 block text-sm text-dark dark:text-white"
+                    >
+                      {" "}
+                      Select Date Of Visiting*{" "}
                     </label>
                     <div className="flex gap-7">
-                      
                       <DatePicker
-                        selected={startDate}
-                        onChange={(date: any) => setStartDate(date)}
+                        selected={date}
+                        minDate={new Date()}
+                        onChange={(date) => setDate(date)}
                         className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -96,13 +158,14 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Set Appointment Password{" "}
+                      Set Appointment Password*{" "}
                     </label>
                     <input
                       type="password"
                       name="password"
                       placeholder="Set An Appointment Password"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setAppointmentPassword(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -111,13 +174,14 @@ const AppointmentForm = () => {
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
                       {" "}
-                      Conform Appointment Password{" "}
+                      Conform Appointment Password*{" "}
                     </label>
                     <input
                       type="password"
                       name="conform_password"
                       placeholder="Retype Appointment Password"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setConformedAppointmentPassword(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8 flex justify-center align-middle ">
@@ -131,7 +195,7 @@ const AppointmentForm = () => {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark">
+                    <button className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark" onClick={submit}>
                       Request Appointment
                     </button>
                   </div>

@@ -1,4 +1,4 @@
-import AppointmentForm from "./appointmentForm";
+import AppointmentForm from "./appointmentForm.jsx";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";

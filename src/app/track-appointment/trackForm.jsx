@@ -1,10 +1,21 @@
+'use client'
 import Link from "next/link";
-
-import { Metadata } from "next";
+import { useState } from "react";
 
 
 
 const SigninPage = () => {
+  const [appID, setAppID] = useState();
+  const [appPassword, setAppPassword] = useState();
+  const find = async(e)=>{
+    e.preventDefault();
+    if (!appID||!appPassword) {
+      //No App ID or Password
+    }
+    else{
+      //Finding Appointment
+    }
+  }
   return (
     <>
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
@@ -39,6 +50,7 @@ const SigninPage = () => {
                       name="id"
                       placeholder="Enter your Unique Appointment ID"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setAppID(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -53,11 +65,12 @@ const SigninPage = () => {
                       name="password"
                       placeholder="Enter your Password"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e)=>{setAppPassword(e.target.value)}}
                     />
                   </div>
                   
                   <div className="mb-6">
-                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90" onClick={find}>
                       Find Appointment
                     </button>
                   </div>

@@ -1,6 +1,25 @@
+'use client'
 import NewsLatterBox from "./NewsLatterBox";
+import { useState } from "react";
 
 const Contact = () => {
+  const [name, setName] = useState();
+  const [number, setNumber] = useState();
+  const [message, setMessage] = useState();
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!name||!number||!message) {
+      
+    }
+    else if(number.length!=10){
+      
+    }
+    else{
+      
+    }
+  }
+
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -31,6 +50,7 @@ const Contact = () => {
                         type="text"
                         placeholder="Enter your name"
                         className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        onChange={(e)=>{setName(e.target.value)}}
                       />
                     </div>
                   </div>
@@ -46,6 +66,7 @@ const Contact = () => {
                         type="number"
                         placeholder="Enter your Phone Number"
                         className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        onChange={(e)=>{setNumber(e.target.value)}}
                       />
                     </div>
                   </div>
@@ -62,11 +83,12 @@ const Contact = () => {
                         rows={5}
                         placeholder="Enter your Message"
                         className="border-stroke w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        onChange={(e)=>{setMessage(e.target.value)}}
                       ></textarea>
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <button className="rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark">
+                    <button className="rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark" onClick={submit}>
                       Send Message
                     </button>
                   </div>

@@ -1,4 +1,4 @@
-import AppointmentForm from "./trackForm";
+import AppointmentForm from "./trackForm.jsx";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
