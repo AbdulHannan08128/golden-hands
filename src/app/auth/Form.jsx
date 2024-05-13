@@ -1,21 +1,20 @@
 'use client'
-import Link from "next/link";
-import { useState } from "react";
-import axios from "axios";
-
-
-const TrackForm = () => {
-  const [appID, setAppID] = useState();
-  const [appPassword, setAppPassword] = useState();
+import React from 'react'
+import axios from 'axios';
+import Link from 'next/link';
+import { useState } from 'react';
+const Form = () => {
+  const [adminEmail, setAdminEmail] = useState();
+  const [adminPassword, setAdminPassword] = useState();
   const find = async(e)=>{
     e.preventDefault();
-    if (!appID||!appPassword) {
+    if (!adminEmail||!adminPassword) {
       //No App ID or Password
     }
     else{
       const data = {
-        id:appID,
-        password:appPassword
+        id:adminEmail,
+        password:adminPassword
       }
       try {
         const response = await axios.post('your_backend_endpoint_here', data);
@@ -35,10 +34,10 @@ const TrackForm = () => {
             <div className="w-full px-4">
               <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                    Track Your Appointment
+                    Sign In
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Easily Check Your Appointment Feedback
+                  Admin Panel Sign In
                 </p>
              
 
@@ -54,14 +53,14 @@ const TrackForm = () => {
                       htmlFor="email"
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
-                      Your Appointment ID
+                      Your Admin Email
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       name="id"
                       placeholder="Enter your Unique Appointment ID"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setAppID(e.target.value)}}
+                      onChange={(e)=>{setAdminEmail(e.target.value)}}
                     />
                   </div>
                   <div className="mb-8">
@@ -69,27 +68,27 @@ const TrackForm = () => {
                       htmlFor="password"
                       className="mb-3 block text-sm text-dark dark:text-white"
                     >
-                      Your Password
+                      Your Admin Password
                     </label>
                     <input
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setAppPassword(e.target.value)}}
+                      onChange={(e)=>{setAdminPassword(e.target.value)}}
                     />
                   </div>
                   
                   <div className="mb-6">
                     <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90" onClick={find}>
-                      Find Appointment
+                      Sign In
                     </button>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Not Booked?{" "}
-                  <Link href="/book-appointment" className="text-primary hover:underline">
-                    Book Appointment
+                  Forgot Password?{" "}
+                  <Link href="/contact" className="text-primary hover:underline">
+                    Contact Us
                   </Link>
                 </p>
               </div>
@@ -156,6 +155,6 @@ const TrackForm = () => {
       </section>
     </>
   );
-};
+}
 
-export default TrackForm;
+export default Form

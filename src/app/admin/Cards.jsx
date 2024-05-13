@@ -6,18 +6,28 @@ const Dashboard = () => {
   return (
     <div className="flex flex-wrap p-3 gap-3">
       <Card
-        title="PENDING"
-        value="15"
+        title="UPCOMING TODAY"
+        value="27"
         
       />
       <Card
-        title="APPOINTMENTS"
-        value="50"
+        title="TOTAL APPOINTMENTS"
+        value="182"
+        
+      />
+      <Card
+        title="UNRESPONDED APPOIN..."
+        value="12"
+        
+      />
+      <Card
+        title="USER MESSAGES"
+        value="5"
         
       />
       <Card
         title="ACCOUNTS"
-        value="10"
+        value="3"
         
       />
       {/* Add more cards here for other metrics */}

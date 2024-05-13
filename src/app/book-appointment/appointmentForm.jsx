@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import axios from "axios";
 const AppointmentForm = () => {
  
   const [name, setName] = useState();
@@ -27,8 +27,29 @@ const AppointmentForm = () => {
     else if(number.length!=10){
       //Number Is Not Valid
     }
+    else if(appointmentPassword!=conformedAppointmentPassword){
+
+    }
     else{
-      //All Details Are Correct
+      let data = {
+        name:name,
+        number:number,
+        email:email,
+        residence:residence,
+        reason:reason,
+        date:date,
+        password:appointmentPassword
+      }
+
+      try {
+        const response = await axios.post('your_backend_endpoint_here', data);
+        console.log('Data posted successfully:', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Error posting data:', error);
+        throw error;
+      }
+
     }
     
   }

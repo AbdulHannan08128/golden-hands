@@ -1,13 +1,14 @@
 'use client'
 import NewsLatterBox from "./NewsLatterBox";
 import { useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
   const [name, setName] = useState();
   const [number, setNumber] = useState();
   const [message, setMessage] = useState();
 
-  const submit = (e) => {
+  const submit = async(e) => {
     e.preventDefault();
     if (!name||!number||!message) {
       
@@ -16,7 +17,19 @@ const Contact = () => {
       
     }
     else{
-      
+      const data = {
+        name:name,
+        number:number, 
+        message:message
+      }
+      try {
+        const response = await axios.post('your_backend_endpoint_here', data);
+        console.log('Data posted successfully:', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Error posting data:', error);
+        throw error;
+      }
     }
   }
 
