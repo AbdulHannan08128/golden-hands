@@ -15,7 +15,7 @@ import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata = {
-  title: "Golden Hands Clinic",
+  title: "Golden Hands Clinic || @Dr Aijaz Ahmad",
   description: "Golden Hands Clinic is committed to providing compassionate and comprehensive healthcare services to the residents of Ganderbal and surrounding areas.",
   keywords: ["Dr Aijaz Ahmad Rather","Dr. Aijaz Ahmad","Aijaz Ahmad","dr aijaz ahmad rather", "dr aijaz ahmad","aijaz ahmad", "Golden Hands", "golden hands", "GH", "gh", "Golden Hands Clinic", "golden hands clinic","clinic", "healthcare", "Ganderbal", "medical services"],
   author: "Abdul Hannan",
