@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from '../../../../utils/DB';
 import Appointment from '../../../../models/appointment'
-await connectToDatabase().then(console.log('DATABASE CONNECTED --@BOOK-APPOINTMENT'));
+await connectToDatabase();
 
 export async function POST(req){
   const appointmentDetails = await req.json();
