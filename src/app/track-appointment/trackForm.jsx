@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import { useState } from "react";
-import axios from "axios";
+import { TRACK_APPOINTMENT } from "../../../utils/API";
 
 
 const TrackForm = () => {
@@ -18,11 +18,9 @@ const TrackForm = () => {
         password:appPassword
       }
       try {
-        const response = await axios.post('your_backend_endpoint_here', data);
-        console.log('Data posted successfully:', response.data);
+        const response = await TRACK_APPOINTMENT(data);
         return response.data;
       } catch (error) {
-        console.error('Error posting data:', error);
         throw error;
       } 
     }

@@ -1,7 +1,7 @@
 'use client'
 import NewsLatterBox from "./NewsLatterBox";
 import { useState } from "react";
-import axios from "axios";
+import {CONTACT} from 'utils/API';
 
 const Contact = () => {
   const [name, setName] = useState();
@@ -23,11 +23,10 @@ const Contact = () => {
         message:message
       }
       try {
-        const response = await axios.post('your_backend_endpoint_here', data);
-        console.log('Data posted successfully:', response.data);
+        const response = await CONTACT(data);
+        response.data.status==200&&alert('Thank You For Contacting Us');
         return response.data;
       } catch (error) {
-        console.error('Error posting data:', error);
         throw error;
       }
     }
