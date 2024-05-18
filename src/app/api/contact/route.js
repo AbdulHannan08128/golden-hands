@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-await connectToDatabase();
+await connectToDatabase().then(console.log('DATABASE CONNECTED --@CONTACT'));
 
 export async function POST(req){
   const contactDetails = await req.json();
