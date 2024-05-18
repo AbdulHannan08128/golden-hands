@@ -20,11 +20,12 @@ const Contact = () => {
       const data = {
         name:name,
         number:number, 
-        message:message
+        message:message,
+        time:Date()
       }
       try {
         const response = await CONTACT(data);
-        response.data.status==200&&alert('Thank You For Contacting Us');
+        response.data.status==200&&alert('Thank You For Contacting Us. We Will Be Back Soon On Your Phone Number.');
         return response.data;
       } catch (error) {
         throw error;

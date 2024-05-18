@@ -16,17 +16,19 @@ const appointmentSchema = new mongoose.Schema({
   },
   residence: {
     type: String,
-    required: true,
   },
   reason: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,
     required: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  APP_ID: {
     type: String,
     required: true,
   },

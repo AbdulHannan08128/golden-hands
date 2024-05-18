@@ -3,59 +3,72 @@ import React, { useState } from "react";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {BOOK_APPOINTMENT} from '../../../utils/API'
+import { BOOK_APPOINTMENT } from "../../../utils/API";
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+
 const AppointmentForm = () => {
- 
   const [name, setName] = useState();
   const [number, setNumber] = useState();
   const [email, setEmail] = useState();
   const [residence, setResidence] = useState();
   const [reason, setReason] = useState();
-  const [date, setDate] = useState(new Date);
+  const [date, setDate] = useState(new Date());
   const [appointmentPassword, setAppointmentPassword] = useState();
-  const [conformedAppointmentPassword, setConformedAppointmentPassword] = useState();
+  const [conformedAppointmentPassword, setConformedAppointmentPassword] =
+    useState();
+  const [appId, setAppId] = useState();
 
-  const submit = async(e)=>{
+
+  const submit = async (e) => {
     e.preventDefault();
-    if (!name||!email||!number||!appointmentPassword||!conformedAppointmentPassword||!date) {
-     //Not Filled All Necessary Fields
-     
-    }
-    else if(!email.includes('@')){
+    if (
+      !name ||
+      !email ||
+      !number ||
+      !appointmentPassword ||
+      !conformedAppointmentPassword ||
+      !date
+    ) {
+      //Not Filled All Necessary Fields
+    } else if (!email.includes("@")) {
       //Email not written properly
-    }
-    else if(number.length!=10){
+    } else if (number.length != 10) {
       //Number Is Not Valid
-    }
-    else if(appointmentPassword!=conformedAppointmentPassword){
-        
-    }
-    else{
+    } else if (appointmentPassword != conformedAppointmentPassword) {
+    } else {
       let data = {
-        name:name,
-        number:number,
-        email:email,
-        residence:residence,
-        reason:reason,
-        date:date,
-        password:appointmentPassword
-      }
+        name: name,
+        number: number,
+        email: email,
+        residence: residence,
+        reason: reason,
+        date: date,
+        password: appointmentPassword,
+      };
 
       try {
-       const response = await BOOK_APPOINTMENT(data);
+        const response = await BOOK_APPOINTMENT(data);
 
-       response.data.status==200&&alert('Appointment Booked Successfully');
-
+        response.data.status == 200 && alert("Appointment Booked Successfully");
+        response?.data?.status == 200 ?setAppId(response?.data?.APP_ID) : setAppId(false);
       } catch (error) {
-       console.log(error);
+        console.log(error);
       }
-
     }
-    
-  }
+  };
 
   return (
     <>
+    {appId&&(
+       <Dialog onClose={()=>{setAppId(false)}} open={open}>
+            <DialogTitle>Appointment Booked Successfully</DialogTitle>
+            <div className="p-10 flex flex-col">
+            <span>YOUR APPOINTMENT ID:</span>
+            <span className="text-3xl">{appId}</span>
+            </div>
+       </Dialog>
+    )}
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
@@ -89,7 +102,9 @@ const AppointmentForm = () => {
                       name="name"
                       placeholder="Enter your full name"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setName(e.target.value)}}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -105,7 +120,9 @@ const AppointmentForm = () => {
                       name="phone"
                       placeholder="Enter your Phone Number"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setNumber(e.target.value)}}
+                      onChange={(e) => {
+                        setNumber(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -121,7 +138,9 @@ const AppointmentForm = () => {
                       name="email"
                       placeholder="Enter your Email"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setEmail(e.target.value)}}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -137,7 +156,9 @@ const AppointmentForm = () => {
                       name="residence"
                       placeholder="Enter your Residence"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setResidence(e.target.value)}}
+                      onChange={(e) => {
+                        setResidence(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -153,7 +174,9 @@ const AppointmentForm = () => {
                       name="reason"
                       placeholder="Enter Cause Of Visiting Us"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setReason(e.target.value)}}
+                      onChange={(e) => {
+                        setReason(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -186,7 +209,9 @@ const AppointmentForm = () => {
                       name="password"
                       placeholder="Set An Appointment Password"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setAppointmentPassword(e.target.value)}}
+                      onChange={(e) => {
+                        setAppointmentPassword(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -202,7 +227,9 @@ const AppointmentForm = () => {
                       name="conform_password"
                       placeholder="Retype Appointment Password"
                       className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setConformedAppointmentPassword(e.target.value)}}
+                      onChange={(e) => {
+                        setConformedAppointmentPassword(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8 flex justify-center align-middle ">
@@ -216,7 +243,10 @@ const AppointmentForm = () => {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark" onClick={submit}>
+                    <button
+                      className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
+                      onClick={submit}
+                    >
                       Request Appointment
                     </button>
                   </div>
