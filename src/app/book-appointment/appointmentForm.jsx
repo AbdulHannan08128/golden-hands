@@ -6,9 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BOOK_APPOINTMENT } from "../../../utils/API";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const AppointmentForm = () => {
   const [name, setName] = useState();
@@ -22,6 +23,9 @@ const AppointmentForm = () => {
     useState();
   const [appId, setAppId] = useState();
   const [loading, setLoading] = useState();
+  const [open, setOpen] = useState();
+
+ 
 
   const submit = async (e) => {
     e.preventDefault();
@@ -52,20 +56,18 @@ const AppointmentForm = () => {
       };
 
       try {
-        
         const response = await BOOK_APPOINTMENT(data);
 
         // response.data.status == 200 && alert("Appointment Booked Successfully");
-        if( response?.data?.status == 200){
+        if (response?.data?.status == 200) {
           setAppId(response?.data?.APP_ID);
           setLoading(false);
+          setOpen(true);
+        } else {
+          setAppId(false);
+          setLoading(false);
+          setOpen(false);
         }
-       else{
-        setAppId(false);
-        setLoading(false);
-       }
-        
-           
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -76,29 +78,41 @@ const AppointmentForm = () => {
   return (
     <>
       {appId && (
-        <Dialog
-          onClose={() => {
-            setAppId(false);
-          }}
-          open={appId}
-          maxWidth="xl"
-          className=""
-        >
-          <DialogTitle>Appointment Booked Successfully</DialogTitle>
-          <div className="flex flex-col p-10">
-            <span>APPOINTMENT ID:</span>
-            <span className="lg:text-3xl text-2xl lg:font-light font-bold">{appId}</span>
-          </div>
-        </Dialog>
-      )}
-      {loading&&(
-        <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+        <>
+          <Dialog
+            open={appId}
+            maxWidth="xl"
+            className="relative"
+          >
+            <DialogTitle className="dark:bg-slate-600 dark:text-white">Appointment Booked Successfully</DialogTitle>
+            <div className="flex flex-col p-10 dark:bg-slate-600 dark:text-white">
+              <span>APPOINTMENT ID:</span>
+              <span className="text-2xl font-bold lg:text-3xl lg:font-light">
+                {appId}
+              </span>
+            </div>
+            <Link href={'/track-appointment'} className="p-3 dark:bg-slate-600 dark:text-white">Track Appointment {'->'}</Link>
 
+          </Dialog>
+          <Snackbar open={open} autoHideDuration={6000} onClose={()=>{setOpen(false)}}>
+            <Alert
+              onClose={()=>{setOpen(false)}}
+              severity="success"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              Appointment Booked Successfully
+            </Alert>
+          </Snackbar>
+        </>
+      )}
+      {loading && (
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       )}
 
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
