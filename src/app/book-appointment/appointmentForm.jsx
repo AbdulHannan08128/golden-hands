@@ -4,8 +4,11 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BOOK_APPOINTMENT } from "../../../utils/API";
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const AppointmentForm = () => {
   const [name, setName] = useState();
@@ -18,7 +21,7 @@ const AppointmentForm = () => {
   const [conformedAppointmentPassword, setConformedAppointmentPassword] =
     useState();
   const [appId, setAppId] = useState();
-
+  const [loading, setLoading] = useState();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const AppointmentForm = () => {
       //Number Is Not Valid
     } else if (appointmentPassword != conformedAppointmentPassword) {
     } else {
+      setLoading(true);
       let data = {
         name: name,
         number: number,
@@ -48,27 +52,55 @@ const AppointmentForm = () => {
       };
 
       try {
+        
         const response = await BOOK_APPOINTMENT(data);
 
-        response.data.status == 200 && alert("Appointment Booked Successfully");
-        response?.data?.status == 200 ?setAppId(response?.data?.APP_ID) : setAppId(false);
+        // response.data.status == 200 && alert("Appointment Booked Successfully");
+        if( response?.data?.status == 200){
+          setAppId(response?.data?.APP_ID);
+          setLoading(false);
+        }
+       else{
+        setAppId(false);
+        setLoading(false);
+       }
+        
+           
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
   };
 
   return (
     <>
-    {appId&&(
-       <Dialog onClose={()=>{setAppId(false)}} open={open}>
-            <DialogTitle>Appointment Booked Successfully</DialogTitle>
-            <div className="p-10 flex flex-col">
-            <span>YOUR APPOINTMENT ID:</span>
-            <span className="text-3xl">{appId}</span>
-            </div>
-       </Dialog>
-    )}
+      {appId && (
+        <Dialog
+          onClose={() => {
+            setAppId(false);
+          }}
+          open={appId}
+          maxWidth="xl"
+          className=""
+        >
+          <DialogTitle>Appointment Booked Successfully</DialogTitle>
+          <div className="flex flex-col p-10">
+            <span>APPOINTMENT ID:</span>
+            <span className="lg:text-3xl text-2xl lg:font-light font-bold">{appId}</span>
+          </div>
+        </Dialog>
+      )}
+      {loading&&(
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
+      )}
+
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
