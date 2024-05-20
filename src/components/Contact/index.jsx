@@ -30,6 +30,9 @@ const Contact = () => {
         const response = await CONTACT(data);
         response.data.status == 200 && setOk(true);
         response.data.status == 200 && setLoading(false);
+        setName('');
+        setNumber('');
+        setMessage('');
         return response.data;
       } catch (error) {
         throw error;
@@ -49,7 +52,7 @@ const Contact = () => {
         >
           <Alert
             onClose={() => {
-              setOpen(false);
+              setOk(false);
             }}
             severity="success"
             variant="filled"
@@ -96,6 +99,7 @@ const Contact = () => {
                         </label>
                         <input
                           type="text"
+                          value={name}
                           placeholder="Enter your name"
                           className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                           onChange={(e) => {
@@ -116,6 +120,7 @@ const Contact = () => {
                           type="number"
                           placeholder="Enter your Phone Number"
                           className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                          value={number}
                           onChange={(e) => {
                             setNumber(e.target.value);
                           }}
@@ -132,13 +137,17 @@ const Contact = () => {
                         </label>
                         <textarea
                           name="message"
+                          
                           rows={5}
                           placeholder="Enter your Message"
                           className="border-stroke w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                           onChange={(e) => {
                             setMessage(e.target.value);
                           }}
-                        ></textarea>
+                          value={message}
+                        >
+                          {message}
+                        </textarea>
                       </div>
                     </div>
                     <div className="w-full px-4">
