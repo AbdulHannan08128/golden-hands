@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { TRACK_APPOINTMENT } from "../../../utils/API";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -38,21 +38,40 @@ const TrackForm = () => {
     }
   };
 
-  function createData(APP_ID, name, number, email, residence, date, password) {
-    return { APP_ID, name, number, email, residence, date, password };
+  function createData(APP_ID, name, number, email, residence, date, reason) {
+    // Convert the ISO date string to a Date object
+    const dateObj = new Date(date);
+
+    // Format the date as "22 May 2024"
+    const formattedDate = dateObj
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(/ /g, " "); // Replace any hyphens or slashes with spaces
+
+    return {
+      APP_ID,
+      name,
+      number,
+      email,
+      residence,
+      date: formattedDate,
+      reason
+    };
   }
 
-  
-
-
-  useEffect(()=>{
+  useEffect(() => {
     let ROWS = [];
-      appointments?.forEach(appointment => {
-        const { name, number, email, residence, reason, date, APP_ID} = appointment;
-        ROWS.push(createData(APP_ID, name, number, email, residence, date))
-      });
-      setRows(ROWS);
-  },[appointments])
+    appointments?.forEach((appointment) => {
+      const { name, number, email, residence, reason, date, APP_ID } =
+        appointment;
+      ROWS.push(createData(APP_ID, name, number, email, residence, date, reason));
+      
+    });
+    setRows(ROWS);
+  }, [appointments]);
   return (
     <>
       {loading && (
@@ -199,9 +218,11 @@ const TrackForm = () => {
         </section>
       ) : (
         <>
-          <div className="w-screen p-5 grid place-items-center relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
-
-            <TableContainer component={Paper} className="lg:max-w-[80vw] dark:bg-slate-600 rounded-lg text-white">
+          <div className="relative z-10 grid w-screen place-items-center overflow-hidden p-5 pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
+            <TableContainer
+              component={Paper}
+              className="rounded-lg text-white dark:bg-slate-600 lg:max-w-[80vw]"
+            >
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -211,7 +232,8 @@ const TrackForm = () => {
                     <TableCell className="dark:text-white">Email</TableCell>
                     <TableCell className="dark:text-white">Residence</TableCell>
                     <TableCell className="dark:text-white">Date</TableCell>
-                    <TableCell className="dark:text-white">View</TableCell>
+                    <TableCell className="dark:text-white">Reason</TableCell>
+                    <TableCell className="dark:text-white">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -220,22 +242,51 @@ const TrackForm = () => {
                       key={row.APP_ID}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row" className="dark:text-white">
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        className="dark:text-white"
+                      >
                         {row.APP_ID}
                       </TableCell>
-                      <TableCell className="dark:text-white">{row.name}</TableCell>
-                      <TableCell className="dark:text-white">{row.number}</TableCell>
-                      <TableCell className="dark:text-white">{row.email}</TableCell>
-                      <TableCell className="dark:text-white">{row.residence}</TableCell>
-                      <TableCell className="dark:text-white">{row.date}</TableCell>
-                      <TableCell className="dark:text-white"><span className="px-4 py-2 bg-primary rounded-2xl text-white cursor-pointer">Track</span></TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.name}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.number}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.email}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.residence}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.date}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.reason}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        <div className="flex gap-4">
+
+                        <span className="cursor-pointer rounded-2xl bg-primary px-4 py-2 text-white">
+                          Track
+                        </span>
+                        <span className="cursor-pointer rounded-2xl bg-orange-600 px-4 py-2 text-white">
+                          Edit
+                        </span>
+                        <span className="cursor-pointer rounded-2xl bg-red-600 px-4 py-2 text-white">
+                          Cancel
+                        </span>
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-      </div>
-         
+          </div>
         </>
       )}
     </>
