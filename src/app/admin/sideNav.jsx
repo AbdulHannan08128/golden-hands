@@ -3,12 +3,21 @@
 import { useState } from "react";
 import "./Sidenav.css";
 import { useRouter } from "next/navigation";
+import {deleteCookie} from './deleteCookie'
+
 
 
 import Link from "next/link";
 
 export default function Sidenav(props) {
   const router = useRouter();
+
+  const Logout = () =>{
+    deleteCookie('GH_ADMIN_ID');
+    deleteCookie('GH_ADMIN_PASSWORD');
+    router.push('/auth');
+  }
+ 
   const [loading, setLoading] = useState(false);
 
   function toggle() {
@@ -45,7 +54,6 @@ export default function Sidenav(props) {
           <button
             className="align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
             type="button"
-            fdprocessedid="t8t7bo"
           >
             <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
               <svg
@@ -239,7 +247,7 @@ export default function Sidenav(props) {
                     <path d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.683 1.657A4.505 4.505 0 0018.75 7.5H5.25z" />
                   </svg>
                   <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                    patients
+                    staff
                   </p>
                 </button>
               </Link>
@@ -269,7 +277,7 @@ export default function Sidenav(props) {
                   />
                 </svg>
 
-                <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
+                <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize" onClick={Logout}>
                   logout
                 </p>
               </button>

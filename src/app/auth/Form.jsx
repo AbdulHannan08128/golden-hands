@@ -1,50 +1,91 @@
-'use client'
-import React from 'react'
-import axios from 'axios';
-import Link from 'next/link';
-import { useState } from 'react';
+"use client";
+import React from "react";
+import { ADMIN_LOGIN } from "../../../utils/API";
+import Link from "next/link";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { setCookie } from "./setCookie";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 const Form = () => {
-  const [adminEmail, setAdminEmail] = useState();
-  const [adminPassword, setAdminPassword] = useState();
-  const find = async(e)=>{
+  const router = useRouter();
+  
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [admin, setAdmin] = useState(null);
+  const [login, setLogin] = useState(false);
+
+  const find = async (e) => {
     e.preventDefault();
-    if (!adminEmail||!adminPassword) {
-      //No App ID or Password
+
+    if (!adminEmail || !adminPassword) {
+      // Display error message to the user
+      console.log("Please provide both email and password.");
+      return;
     }
-    else{
-      const data = {
-        id:adminEmail,
-        password:adminPassword
+
+    setLoading(true);
+    const data = {
+      email: adminEmail,
+      password: adminPassword,
+    };
+
+    try {
+      const response = await ADMIN_LOGIN(data);
+      if (response?.data?.status === 200) {
+        setLogin(true);
+        setAdmin(response?.data?.ADMIN);
       }
-      try {
-        const response = await axios.post('your_backend_endpoint_here', data);
-        console.log('Data posted successfully:', response.data);
-        return response.data;
-      } catch (error) {
-        console.error('Error posting data:', error);
-        throw error;
-      } 
+    } catch (error) {
+      console.error("Error posting data:", error);
+      // Handle error state here
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (login && admin) {
+      
+      try {
+        setCookie( "GH_ADMIN_ID", admin.id);
+        setCookie( "GH_ADMIN_PASSWORD", admin.password);
+      } catch (error) {
+        console.log(error);
+      } finally{
+        router.push('/admin');
+      }
+      
+    }
+  }, [login, admin, router]);
+
   return (
     <>
+      {loading && (
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-three dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                    Sign In
+                  Sign In
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
                   Admin Panel Sign In
                 </p>
-             
-
 
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
-                  
+
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                 </div>
                 <form>
@@ -58,9 +99,11 @@ const Form = () => {
                     <input
                       type="email"
                       name="id"
-                      placeholder="Enter your Unique Appointment ID"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setAdminEmail(e.target.value)}}
+                      placeholder="Enter your Admin Email"
+                      className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e) => {
+                        setAdminEmail(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="mb-8">
@@ -74,20 +117,28 @@ const Form = () => {
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      onChange={(e)=>{setAdminPassword(e.target.value)}}
+                      className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                      onChange={(e) => {
+                        setAdminPassword(e.target.value);
+                      }}
                     />
                   </div>
-                  
+
                   <div className="mb-6">
-                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90" onClick={find}>
+                    <button
+                      className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark"
+                      onClick={find}
+                    >
                       Sign In
                     </button>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Forgot Password?{" "}
-                  <Link href="/contact" className="text-primary hover:underline">
+                  <Link
+                    href="/contact"
+                    className="text-primary hover:underline"
+                  >
                     Contact Us
                   </Link>
                 </p>
@@ -155,6 +206,6 @@ const Form = () => {
       </section>
     </>
   );
-}
+};
 
-export default Form
+export default Form;

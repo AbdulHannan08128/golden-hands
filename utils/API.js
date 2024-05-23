@@ -16,3 +16,7 @@ export const CONTACT = async (data)=>{
   const response = API.post('api/contact', data);
   return response;
 }
+export const ADMIN_LOGIN = async (data)=>{
+  const response = API.post('api/auth', data);
+  return response;
+}

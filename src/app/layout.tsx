@@ -6,6 +6,8 @@ import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -23,8 +25,11 @@ export default function RootLayout({
 
       <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
         <Providers>
-          
+         
+
           {children}
+
+          
           
           
         </Providers>

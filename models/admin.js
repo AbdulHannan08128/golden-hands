@@ -1,40 +1,41 @@
 const mongoose = require('mongoose')
 
 // Define the schema
-const appointmentSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   number: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
     required: true,
   },
-  residence: {
+  id: {
     type: String,
+    required: true,
   },
-  reason: {
-    type: String,
-  },
-  date: {
-    type: Date,
+  role: {
+    type: String, 
+    enum: ['ADMINISTRATOR', 'OPERATOR'],
     required: true,
   },
   password: {
     type: String,
     required: true,
   },
-  APP_ID: {
-    type: String,
-    required: true,
-  },
+  session_token:{
+    type:String
+  }
+
 });
 
 // Create the model
-const Appointment = mongoose.models.Appointment || mongoose.model('Appointment', appointmentSchema);
+const Admin = mongoose.models.Admin || mongoose.model('Admin', adminSchema);
 
-module.exports = Appointment;
+// Export the model
+
+
+module.exports = Admin;
