@@ -15,6 +15,16 @@ const Dashboard = ({data}) => {
   const unResponded = appointments?.filter(appointment => {
     return appointment?.STATUS=='PENDING';
   });
+  const dismissed = appointments?.filter(appointment => {
+    return appointment?.STATUS=='DISMISSED';
+  });
+  const accepted = appointments?.filter(appointment => {
+    return appointment?.STATUS=='ACCEPTED';
+  });
+  const rescheduled = appointments?.filter(appointment => {
+    return appointment?.STATUS=='RESCHEDULED';
+  });
+  
 
   return (
     <div className="flex flex-wrap p-3 gap-3">
@@ -30,7 +40,22 @@ const Dashboard = ({data}) => {
       />
       <Card
         title="UNRESPONDED APPOIN..."
-        value={unResponded.length}
+        value={unResponded?.length}
+        
+      />
+      <Card
+        title="DISMISSED APPOIN..."
+        value={dismissed?.length}
+        
+      />
+      <Card
+        title="ACCEPTED APPOIN..."
+        value={accepted?.length}
+        
+      />
+      <Card
+        title="RESCHEDULED APPOIN..."
+        value={rescheduled?.length}
         
       />
       <Card
