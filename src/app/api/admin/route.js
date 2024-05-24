@@ -19,7 +19,7 @@ const GET_ADMINS = async () =>{
   return ADMINS;
 }
 
-export async function GET(){
+export async function POST(){
    const APPOINTMENTS = await GET_APPOINTMENTS();
    const CONTACTS = await GET_CONTACTS();
    const ADMINS = await GET_ADMINS();
