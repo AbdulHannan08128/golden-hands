@@ -4,6 +4,7 @@ import { Metadata } from "next";
 export const metadata : Metadata = {
   title:'Admin Panel || GH'
 }
+export const dynamic = "force-dynamic";
 const Layout = ({ children }) => {
   return (
     <div
