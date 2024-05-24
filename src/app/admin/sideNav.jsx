@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Sidenav.css";
 import { useRouter } from "next/navigation";
-import {deleteCookie} from './deleteCookie'
+import {deleteCookie} from './deleteCookie';
+import {getCookie} from './getCookie';
+
 
 
 
@@ -12,13 +14,14 @@ import Link from "next/link";
 export default function Sidenav(props) {
   const router = useRouter();
 
-  const Logout = () =>{
-    deleteCookie('GH_ADMIN_ID');
-    deleteCookie('GH_ADMIN_PASSWORD');
+  const Logout = async () =>{
+    await deleteCookie('GH_ADMIN_ID');
+    await deleteCookie('GH_ADMIN_PASSWORD');
     router.push('/auth');
   }
  
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState(false);
 
   function toggle() {
     document.querySelector("#sn").classList.toggle("-translate-x-96");
@@ -29,6 +32,13 @@ export default function Sidenav(props) {
     }
     document.querySelector("#sn").classList.toggle("open");
   }
+  
+useEffect(()=>{
+  async function ROLE(){
+    setRole(await getCookie('GH_ADMIN_ROLE'));
+  }
+  ROLE();
+},[])
   
 
   return (
@@ -130,6 +140,7 @@ export default function Sidenav(props) {
                 </button>
               </Link>
             </li>
+          
 
             <ul className="mb-4 flex flex-col gap-1">
               <li className="mx-3.5 mt-4 mb-2">
@@ -187,14 +198,14 @@ export default function Sidenav(props) {
                       />
                     </svg>
                     <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                      check
+                      view
                     </p>
                   </button>
                 </Link>
               </li>
             </ul>
           </ul>
-        
+        {role=='ADMINISTRATOR'&&(
           <ul className="mb-4 flex flex-col gap-1">
             <li className="mx-3.5 mt-4 mb-2">
               <Link href="/admin/accounts">
@@ -225,7 +236,7 @@ export default function Sidenav(props) {
                     />
                   </svg>
                   <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                    doctors
+                    add
                   </p>
                 </button>
               </Link>
@@ -247,12 +258,25 @@ export default function Sidenav(props) {
                     <path d="M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.683 1.657A4.505 4.505 0 0018.75 7.5H5.25z" />
                   </svg>
                   <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                    staff
+                    view
                   </p>
                 </button>
               </Link>
             </li>
-            <li>
+            
+          </ul>
+        )
+       
+        }
+         <ul className="mb-4 flex flex-col gap-1">
+         <li className="mx-3.5 mt-4 mb-2">
+              <Link href="/admin/accounts">
+                <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-black uppercase opacity-75">
+                  settings
+                </p>
+              </Link>
+            </li>
+         <li>
               <button
                 className="align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 w-full flex items-center gap-4 px-4 capitalize"
                 type="button"
@@ -283,6 +307,7 @@ export default function Sidenav(props) {
               </button>
             </li>
           </ul>
+          
         </div>
       </aside>
       {loading ? (

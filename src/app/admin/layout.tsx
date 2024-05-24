@@ -1,6 +1,9 @@
 import Header from "./Header";
 import SideNav from "./sideNav.jsx";
-
+import { Metadata } from "next";
+export const metadata : Metadata = {
+  title:'Admin Panel || GH'
+}
 const Layout = ({ children }) => {
   return (
     <div

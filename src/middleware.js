@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 
 
 export function middleware(req) {
+
   if (req?.nextUrl?.pathname?.startsWith('/admin')) {
     const GH_ADMIN_ID = req.cookies.get('GH_ADMIN_ID');
     const GH_ADMIN_PASSWORD = req.cookies.get('GH_ADMIN_PASSWORD');
@@ -18,7 +19,8 @@ export function middleware(req) {
       return NextResponse.redirect(new URL('/auth', req.url));
     }
   }
-  else if (req?.nextUrl?.pathname?.startsWith('/auth')) {
+
+  if (req?.nextUrl?.pathname?.startsWith('/auth')) {
     const GH_ADMIN_ID = req.cookies.get('GH_ADMIN_ID');
     const GH_ADMIN_PASSWORD = req.cookies.get('GH_ADMIN_PASSWORD');
 
@@ -29,8 +31,25 @@ export function middleware(req) {
     }
 
   }
+
+  
+  if (req?.nextUrl?.pathname?.startsWith('/api/admin')) {
+
+    const key = req.nextUrl.searchParams.get('GH_KEY');
+
+    if (key == process.env.API_KEY) {
+      return NextResponse.next();
+    }
+    else {
+      return NextResponse.json({ status: 404 });
+    }
+
+
+
+
+  }
 }
 
 export const config = {
-  matcher: ['/admin', '/admin/:path*', '/auth', '/auth/:path*'], // Apply this middleware to all admin routes
+  matcher: ['/admin', '/admin/:path*', '/auth', '/auth/:path*', '/api/admin', '/api/admin/:path*']
 };

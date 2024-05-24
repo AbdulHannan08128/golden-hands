@@ -1,33 +1,46 @@
 import React from 'react';
-import { AppointmentsIcon, TotalAppointmentsIcon, AdminAccountsIcon } from './Icons';
+
 import Card from './Card';
 
-const Dashboard = () => {
+const Dashboard = ({data}) => {
+  const appointments = data?.APPOINTMENTS;
+  const contacts = data?.CONTACTS;
+  const admins = data?.ADMINS;
+  
+  const today = new Date().toISOString().split('T')[0];
+  const upcomingToday = appointments?.filter(appointment => {
+    const appointmentDate = new Date(appointment.date).toISOString().split('T')[0];
+    return appointmentDate === today;
+  });
+  const unResponded = appointments?.filter(appointment => {
+    return appointment?.STATUS=='PENDING';
+  });
+
   return (
     <div className="flex flex-wrap p-3 gap-3">
       <Card
         title="UPCOMING TODAY"
-        value="27"
+        value={upcomingToday?.length}
         
       />
       <Card
         title="TOTAL APPOINTMENTS"
-        value="182"
+        value={appointments?.length}
         
       />
       <Card
         title="UNRESPONDED APPOIN..."
-        value="12"
+        value={unResponded.length}
         
       />
       <Card
         title="USER MESSAGES"
-        value="5"
+        value={contacts?.length}
         
       />
       <Card
-        title="ACCOUNTS"
-        value="3"
+        title="ADMINS"
+        value={admins?.length}
         
       />
       {/* Add more cards here for other metrics */}

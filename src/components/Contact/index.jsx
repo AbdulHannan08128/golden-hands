@@ -13,11 +13,14 @@ const Contact = () => {
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState();
   const [ok, setOk] = useState();
+  const [error, setError] = useState();
 
   const submit = async (e) => {
     e.preventDefault();
     if (!name || !number || !message) {
+      setError('Please Fill In All The Fields');
     } else if (number.length != 10) {
+      setError('Seems That Your Phone Number Is Invalid');
     } else {
       setLoading(true);
       const data = {
@@ -64,6 +67,22 @@ const Contact = () => {
       ) : (
         ""
       )}
+       {
+        error&&(
+          <Snackbar open={error} autoHideDuration={6000} onClose={()=>{setError(false)}}>
+            <Alert
+              onClose={()=>{setError(false)}}
+              severity="error"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
+        )
+
+        
+      }
       {loading && (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

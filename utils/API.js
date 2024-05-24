@@ -20,3 +20,7 @@ export const ADMIN_LOGIN = async (data)=>{
   const response = API.post('api/auth', data);
   return response;
 }
+export const ADMIN = async (data)=>{
+  const response = API.get(`api/admin?GH_KEY=Obj2321098767890_GH`, data);
+  return response;
+}

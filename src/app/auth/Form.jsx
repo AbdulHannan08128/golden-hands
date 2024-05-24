@@ -7,23 +7,24 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { setCookie } from "./setCookie";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const Form = () => {
   const router = useRouter();
-  
+
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [admin, setAdmin] = useState(null);
   const [login, setLogin] = useState(false);
+  const [error, setError] = useState();
 
   const find = async (e) => {
     e.preventDefault();
 
     if (!adminEmail || !adminPassword) {
-      // Display error message to the user
-      console.log("Please provide both email and password.");
-      return;
+      setError("Please Fill In All The Fields");
     }
 
     setLoading(true);
@@ -48,16 +49,18 @@ const Form = () => {
 
   useEffect(() => {
     if (login && admin) {
-      
       try {
-        setCookie( "GH_ADMIN_ID", admin.id);
-        setCookie( "GH_ADMIN_PASSWORD", admin.password);
+        async function cookies() {
+          await setCookie("GH_ADMIN_ID", admin.id);
+          await setCookie("GH_ADMIN_ROLE", admin.role);
+          await setCookie("GH_ADMIN_PASSWORD", admin.password);
+        }
+        cookies();
       } catch (error) {
         console.log(error);
-      } finally{
-        router.push('/admin');
+      } finally {
+        router.push("/admin");
       }
-      
     }
   }, [login, admin, router]);
 
@@ -70,6 +73,26 @@ const Form = () => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
+      )}
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={() => {
+            setError(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setError(false);
+            }}
+            severity="error"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {error}
+          </Alert>
+        </Snackbar>
       )}
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
         <div className="container">

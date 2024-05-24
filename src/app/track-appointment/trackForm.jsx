@@ -11,6 +11,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const TrackForm = () => {
   const [appID, setAppID] = useState();
@@ -18,10 +20,11 @@ const TrackForm = () => {
   const [loading, setLoading] = useState();
   const [appointments, setAppointments] = useState();
   const [rows, setRows] = useState();
+  const [error, setError] = useState();
   const find = async (e) => {
     e.preventDefault();
     if (!appID || !appPassword) {
-      //No App ID or Password
+      setError('Please Fill In All The Fields');
     } else {
       setLoading(true);
       const data = {
@@ -31,9 +34,14 @@ const TrackForm = () => {
       try {
         const response = await TRACK_APPOINTMENT(data);
         response?.data?.status == 200 && setLoading(false);
+        if(response?.data?.appointments?.length<1){
+          setError('No Appointments Found');
+        }
+        else{
         setAppointments(response?.data?.appointments);
+        }
       } catch (error) {
-        throw error;
+        setError('Severe Server Error');
       }
     }
   };
@@ -82,6 +90,23 @@ const TrackForm = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       )}
+
+       {
+        error&&(
+          <Snackbar open={error} autoHideDuration={6000} onClose={()=>{setError(false)}}>
+            <Alert
+              onClose={()=>{setError(false)}}
+              severity="error"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
+        )
+
+        
+      }
       {!appointments ? (
         <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
           <div className="container">

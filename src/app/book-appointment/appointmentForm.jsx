@@ -24,8 +24,7 @@ const AppointmentForm = () => {
   const [appId, setAppId] = useState();
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState();
-
- 
+  const [error, setError] = useState();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -37,12 +36,13 @@ const AppointmentForm = () => {
       !conformedAppointmentPassword ||
       !date
     ) {
-      //Not Filled All Necessary Fields
+      setError("Please Fill In All The Fields");
     } else if (!email.includes("@")) {
-      //Email not written properly
+      setError("Make Sure The Email Is Correct");
     } else if (number.length != 10) {
-      //Number Is Not Valid
+      setError("Seems That Your Phone Number Is Invalid");
     } else if (appointmentPassword != conformedAppointmentPassword) {
+      setError("Passwords Not Matching");
     } else {
       setLoading(true);
       let data = {
@@ -67,6 +67,7 @@ const AppointmentForm = () => {
           setAppId(false);
           setLoading(false);
           setOpen(false);
+          setError("Internal Server Error");
         }
       } catch (error) {
         console.log(error);
@@ -79,24 +80,34 @@ const AppointmentForm = () => {
     <>
       {appId && (
         <>
-          <Dialog
-            open={appId}
-            maxWidth="xl"
-            className="relative"
-          >
-            <DialogTitle className="dark:bg-slate-600 dark:text-white">Appointment Booked Successfully</DialogTitle>
+          <Dialog open={appId} maxWidth="xl" className="relative">
+            <DialogTitle className="dark:bg-slate-600 dark:text-white">
+              Appointment Booked Successfully
+            </DialogTitle>
             <div className="flex flex-col p-10 dark:bg-slate-600 dark:text-white">
               <span>APPOINTMENT ID:</span>
               <span className="text-2xl font-bold lg:text-3xl lg:font-light">
                 {appId}
               </span>
             </div>
-            <Link href={'/track-appointment'} className="p-3 dark:bg-slate-600 dark:text-white">Track Appointment {'->'}</Link>
-
+            <Link
+              href={"/track-appointment"}
+              className="p-3 dark:bg-slate-600 dark:text-white"
+            >
+              Track Appointment {"->"}
+            </Link>
           </Dialog>
-          <Snackbar open={open} autoHideDuration={6000} onClose={()=>{setOpen(false)}}>
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => {
+              setOpen(false);
+            }}
+          >
             <Alert
-              onClose={()=>{setOpen(false)}}
+              onClose={() => {
+                setOpen(false);
+              }}
               severity="success"
               variant="filled"
               sx={{ width: "100%" }}
@@ -105,6 +116,26 @@ const AppointmentForm = () => {
             </Alert>
           </Snackbar>
         </>
+      )}
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={() => {
+            setError(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setError(false);
+            }}
+            severity="error"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {error}
+          </Alert>
+        </Snackbar>
       )}
       {loading && (
         <Backdrop
