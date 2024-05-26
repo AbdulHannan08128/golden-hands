@@ -1,8 +1,7 @@
 import React from 'react';
-
 import Card from './Card';
 
-const Dashboard = ({data}) => {
+const Dashboard = ({ data }) => {
   const appointments = data?.APPOINTMENTS;
   const contacts = data?.CONTACTS;
   const admins = data?.ADMINS;
@@ -13,62 +12,69 @@ const Dashboard = ({data}) => {
     return appointmentDate === today;
   });
   const unResponded = appointments?.filter(appointment => {
-    return appointment?.STATUS=='PENDING';
+    return appointment?.STATUS === 'PENDING';
   });
   const dismissed = appointments?.filter(appointment => {
-    return appointment?.STATUS=='DISMISSED';
+    return appointment?.STATUS === 'DISMISSED';
   });
   const accepted = appointments?.filter(appointment => {
-    return appointment?.STATUS=='ACCEPTED';
+    return appointment?.STATUS === 'ACCEPTED';
   });
   const rescheduled = appointments?.filter(appointment => {
-    return appointment?.STATUS=='RESCHEDULED';
+    return appointment?.STATUS === 'RESCHEDULED';
   });
-  
 
   return (
     <div className="flex flex-wrap p-3 gap-3">
       <Card
         title="UPCOMING TODAY"
         value={upcomingToday?.length}
-        
-      />
-      <Card
-        title="TOTAL APPOINTMENTS"
-        value={appointments?.length}
-        
-      />
-      <Card
-        title="UNRESPONDED APPOIN..."
-        value={unResponded?.length}
-        
-      />
-      <Card
-        title="DISMISSED APPOIN..."
-        value={dismissed?.length}
-        
+        color="green"
+        text_color="green"
       />
       <Card
         title="ACCEPTED APPOIN..."
         value={accepted?.length}
-        
+        color="green"
+        text_color="green"
       />
+      <Card
+        title="TOTAL APPOINTMENTS"
+        value={appointments?.length}
+        color="blue"
+        text_color="blue"
+      />
+      <Card
+        title="UNRESPONDED APPOIN..."
+        value={unResponded?.length}
+        color="red"
+        text_color="red"
+      />
+      <Card
+        title="DISMISSED APPOIN..."
+        value={dismissed?.length}
+        color="red"
+        text_color="red"
+      />
+      
       <Card
         title="RESCHEDULED APPOIN..."
         value={rescheduled?.length}
-        
+        color="blue"
+        text_color="blue"
       />
       <Card
         title="USER MESSAGES"
         value={contacts?.length}
-        
+        color="blue"
+        text_color="blue"
       />
       <Card
         title="ADMINS"
         value={admins?.length}
-        
+        color="green"
+        text_color="green"
       />
-      {/* Add more cards here for other metrics */}
     </div>
   );
 };
