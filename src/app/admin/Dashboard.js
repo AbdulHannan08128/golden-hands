@@ -10,6 +10,8 @@ import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import Link from "next/link";
 import MessageIcon from '@mui/icons-material/Message';
 import Tooltip from '@mui/material/Tooltip';
+import PersonIcon from '@mui/icons-material/Person';
+import Table from './Table';
 
 const Dashboard = () => {
   const [data, setData] = useState();
@@ -60,7 +62,6 @@ const Dashboard = () => {
     });
     return upcomingAppointments;
   };
-  
 
   const upcomingAppointments = data ? getUpcomingAppointments() : [];
 
@@ -77,6 +78,14 @@ const Dashboard = () => {
                 >
                   <RefreshIcon />
                 </button>
+              </Tooltip>
+              <Tooltip title='Profile'>
+                <Link
+                  className="rounded-3xl border-black bg-red-500 p-2 text-white active:bg-black active:dark:bg-white active:dark:text-black"
+                  href={'/admin/profile'}
+                >
+                  <PersonIcon />
+                </Link>
               </Tooltip>
               <Tooltip title='Appointments'>
                 <Link
@@ -96,8 +105,8 @@ const Dashboard = () => {
               </Tooltip>
             </div>
             <Cards data={data} />
-            <div className="lg:grid grid-cols-2 gap-4 overflow-x-scroll">
-              <div className="h-[300px] mt-20 max-w-[90vw] overflow-y-hidden overflow-x-scroll rounded-3xl shadow-xl dark:bg-slate-400">
+            <div className="lg:grid grid-cols-2 gap-4 overflow-x-scroll p-4">
+              <div className="h-[300px] mt-20 max-w-[90vw] overflow-y-hidden overflow-x-scroll rounded-3xl shadow-xl dark:bg-slate-200">
                 <PieChart
                   series={[
                     {
@@ -148,7 +157,7 @@ const Dashboard = () => {
                   className="overflow-scroll"
                 />
               </div>
-              <div className="mt-20 h-[300px] max-w-[90vw] overflow-y-hidden overflow-x-scroll rounded-3xl shadow-xl dark:bg-slate-400">
+              <div className="mt-20 h-[300px] max-w-[90vw] overflow-y-hidden overflow-x-scroll rounded-3xl shadow-xl dark:bg-slate-200">
                 <BarChart
                   dataset={upcomingAppointments.map(a => ({ date: a.date, day: a.day, count: a.count }))}
                   xAxis={[
@@ -157,8 +166,13 @@ const Dashboard = () => {
                   series={[{ dataKey: 'count', label: 'Appointments' }]}
                   height={300}
                   width={600}
-                />
+                /> 
               </div>
+
+            </div>
+
+            <div>
+              <Table data={data?.APPOINTMENTS}/>
             </div>
           </>
         ) : (
