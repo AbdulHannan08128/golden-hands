@@ -46,21 +46,28 @@ export default function DataTable({ data }) {
   // Add an id field to each row for the DataGrid
   const rows = data ? data.map((row) => ({ ...row, id: row._id })) : [];
 
+  rows.reverse();
+
   return (
-    <div className="w-full overflow-x-auto my-10">
-      <div className="min-w-[700px] sm:min-w-0 dark:bg-slate-200 rounded-2xl">
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          autoHeight
-          className=""
-        />
+    <div className="my-10 overflow-hidden">
+      <div className="text-2xl mb-4 p-2 rounded-lg bg-green-500 text-white font-bold">New Appointments</div>
+      <div className="w-full overflow-x-scroll">
+        <div className="min-w-[700px] sm:min-w-0 dark:bg-slate-200 rounded-2xl">
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 5 },
+              },
+            }}
+            pageSizeOptions={[5, 10, 15, 20, 25, 30, 45, 50]}
+            autoHeight
+            checkboxSelection
+            className=""
+            
+          />
+        </div>
       </div>
     </div>
   );
