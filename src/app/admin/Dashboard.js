@@ -172,7 +172,7 @@ const Dashboard = () => {
             </div>
 
             <div>
-              <Table data={data?.APPOINTMENTS}/>
+              <Table DATA={data?.APPOINTMENTS}/>
             </div>
           </>
         ) : (

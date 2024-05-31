@@ -24,3 +24,7 @@ export const ADMIN = async ()=>{
   const response = API.post(`api/admin?GH_KEY=Obj2321098767890_GH`, {get:'admin'});
   return response;
 }
+export const STATUS = async (data)=>{
+  const response = API.post(`api/admin/STATUS?GH_KEY=Obj2321098767890_GH`, data);
+  return response;
+}

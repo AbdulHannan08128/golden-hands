@@ -46,7 +46,7 @@ const TrackForm = () => {
     }
   };
 
-  function createData(APP_ID, name, number, email, residence, date, reason) {
+  function createData(APP_ID, name, number, email, residence, date, reason, STATUS) {
     // Convert the ISO date string to a Date object
     const dateObj = new Date(date);
 
@@ -66,16 +66,17 @@ const TrackForm = () => {
       email,
       residence,
       date: formattedDate,
-      reason
+      reason,
+      STATUS
     };
   }
 
   useEffect(() => {
     let ROWS = [];
     appointments?.forEach((appointment) => {
-      const { name, number, email, residence, reason, date, APP_ID } =
+      const { name, number, email, residence, reason, date, APP_ID, STATUS } =
         appointment;
-      ROWS.push(createData(APP_ID, name, number, email, residence, date, reason));
+      ROWS.push(createData(APP_ID, name, number, email, residence, date, reason, STATUS));
       
     });
     setRows(ROWS);
@@ -258,6 +259,7 @@ const TrackForm = () => {
                     <TableCell className="dark:text-white">Residence</TableCell>
                     <TableCell className="dark:text-white">Date</TableCell>
                     <TableCell className="dark:text-white">Reason</TableCell>
+                    <TableCell className="dark:text-white">Status</TableCell>
                     <TableCell className="dark:text-white">Actions</TableCell>
                   </TableRow>
                 </TableHead>
@@ -291,6 +293,9 @@ const TrackForm = () => {
                       </TableCell>
                       <TableCell className="dark:text-white">
                         {row.reason}
+                      </TableCell>
+                      <TableCell className="dark:text-white">
+                        {row.STATUS}
                       </TableCell>
                       <TableCell className="dark:text-white">
                         <div className="flex gap-4">
