@@ -140,13 +140,13 @@ export default function DataTable({ DATA }) {
   }, [selectedRows]);
 
   return (
-    <Box my={10} overflow="hidden" className="dark:bg-black text-white">
+    <Box my={10} overflow="hidden" className="dark:bg-black dark:text-white">
       <Paper elevation={3} sx={{ p: 2, mb: 4, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
         <Typography variant="h4" component="div" fontWeight="bold">
           New Appointments
         </Typography>
       </Paper>
-      <Box sx={{ overflowX: 'auto', mb: 2 }}b className="dark:bg-black text-white">
+      <Box sx={{ overflowX: 'auto', mb: 2 }}b className="dark:bg-black dark:text-white">
         <Box sx={{ minWidth: 700, bgcolor: 'background.paper', borderRadius: 2, p: 2 }}>
           <DataGrid
             rows={rows}
@@ -162,7 +162,7 @@ export default function DataTable({ DATA }) {
             onRowSelectionModelChange={(newSelection) =>
               handleRowSelection(newSelection)
             }
-            className="dark:bg-black text-white"
+            className="dark:bg-black dark:text-white"
           />
         </Box>
       </Box>
