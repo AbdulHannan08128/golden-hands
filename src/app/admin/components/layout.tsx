@@ -1,5 +1,5 @@
-import Header from "./components/Header";
-import SideNav from "./sideNav.jsx";
+import Header from "./Header.js";
+import SideNav from "../sideNav.jsx";
 import { Metadata } from "next";
 export const metadata : Metadata = {
   title:'Admin Panel || GH'

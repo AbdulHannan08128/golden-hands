@@ -14,14 +14,33 @@ import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {STATUS} from '../../../utils/API';
+import { STATUS } from '../../../utils/API';
 
 const columnsBase = [
   { field: "APP_ID", headerName: "APP_ID", flex: 1 },
   { field: "name", headerName: "Name", flex: 1 },
   { field: "number", headerName: "Phone", flex: 1 },
   { field: "email", headerName: "Email", flex: 2 },
-  { field: "STATUS", headerName: "Status", flex: 1 },
+  {
+    field: "STATUS",
+    headerName: "Status",
+    flex: 1,
+    renderCell: (params) => (
+      <Box
+        sx={{
+          borderRadius: '8px',
+          px: 2,
+          py: 1,
+          bgcolor: getStatusColor(params.value),
+          color: 'white',
+          textAlign: 'center',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {params.value}
+      </Box>
+    ),
+  },
   {
     field: "date",
     headerName: "Date",
@@ -34,15 +53,16 @@ const columnsBase = [
 ];
 
 const columnsWithMinWidth = [
-  { field: "APP_ID", headerName: "APP_ID", flex: 1, minWidth: 200 },
-  { field: "name", headerName: "Name", flex: 1, minWidth: 200 },
+  { field: "APP_ID", headerName: "APP_ID", flex: 1, minWidth: 150 },
+  { field: "name", headerName: "Name", flex: 1, minWidth: 150 },
   { field: "number", headerName: "Phone", flex: 1, minWidth: 150 },
-  { field: "email", headerName: "Email", flex: 2, minWidth: 270 },
-  { field: "STATUS", headerName: "Status", flex: 1, minWidth: 170 },
+  { field: "email", headerName: "Email", flex: 2, minWidth: 200 },
+  { field: "STATUS", headerName: "Status", flex: 1, minWidth: 150 },
   {
     field: "date",
     headerName: "Date",
-    flex: 1, minWidth: 120,
+    flex: 1,
+    minWidth: 120,
     valueGetter: (params) => {
       const date = new Date(params.value);
       return new Intl.DateTimeFormat("en-GB").format(date);
@@ -50,13 +70,23 @@ const columnsWithMinWidth = [
   },
 ];
 
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'PENDING': return 'grey';
+    case 'ACCEPTED': return 'green';
+    case 'DISMISSED': return 'red';
+    case 'RESCHEDULED': return 'orange';
+    default: return 'grey';
+  }
+};
+
 export default function DataTable({ DATA }) {
   const isMobile = useMediaQuery({ maxWidth: 640 });
   const columns = isMobile ? columnsWithMinWidth : columnsBase;
   const [selectedRows, setSelectedRows] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [statusMap, setStatusMap] = React.useState({});
-  const [ data, setData] = React.useState(DATA);
+  const [data, setData] = React.useState(DATA);
 
   const rows = data ? data.map((row) => ({ ...row, id: row._id })) : [];
   rows.reverse();
@@ -110,13 +140,13 @@ export default function DataTable({ DATA }) {
   }, [selectedRows]);
 
   return (
-    <Box my={10} overflow="hidden">
+    <Box my={10} overflow="hidden" className="dark:bg-black text-white">
       <Paper elevation={3} sx={{ p: 2, mb: 4, bgcolor: 'primary.main', color: 'primary.contrastText' }}>
         <Typography variant="h4" component="div" fontWeight="bold">
           New Appointments
         </Typography>
       </Paper>
-      <Box sx={{ overflowX: 'auto' }}>
+      <Box sx={{ overflowX: 'auto', mb: 2 }}b className="dark:bg-black text-white">
         <Box sx={{ minWidth: 700, bgcolor: 'background.paper', borderRadius: 2, p: 2 }}>
           <DataGrid
             rows={rows}
@@ -132,6 +162,7 @@ export default function DataTable({ DATA }) {
             onRowSelectionModelChange={(newSelection) =>
               handleRowSelection(newSelection)
             }
+            className="dark:bg-black text-white"
           />
         </Box>
       </Box>
@@ -182,10 +213,7 @@ export default function DataTable({ DATA }) {
         </DialogActions>
       </Dialog>
 
-      <Box sx={{ position: 'relative', mt: 2 }}>
-        <Box sx={{ position: 'absolute', inset: -5 }}>
-          <Box sx={{ mx: 'auto', h: 'full', w: 'full', maxW: 'sm', bgcolor: 'rgba(255, 255, 255, 0.3)', blur: 10, borderRadius: 'xl' }}></Box>
-        </Box>
+      <Box sx={{ position: 'fixed', bottom: 16, right: 16 }}>
         <Button
           variant="contained"
           color="secondary"

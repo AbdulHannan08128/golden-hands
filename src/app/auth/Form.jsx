@@ -59,7 +59,7 @@ const Form = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        router.push("/admin");
+        window.location.href = '/admin';
       }
     }
   }, [login, admin, router]);

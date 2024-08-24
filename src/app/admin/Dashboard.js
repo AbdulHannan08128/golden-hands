@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Cards from "./Cards";
+import Cards from "./components/Cards";
 import CircularProgress from "@mui/material/CircularProgress";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
